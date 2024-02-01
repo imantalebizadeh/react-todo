@@ -1,3 +1,9 @@
+import Header from "@/components/Header";
+
 export default function App() {
-  return <div>App</div>;
+  return (
+    <div className="mx-auto h-screen w-full max-w-screen-sm">
+      <Header />
+    </div>
+  );
 }
