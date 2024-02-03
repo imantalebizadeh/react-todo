@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import AddForm from "@/components/AddForm";
+import FilterForm from "@/components/FilterForm";
 
 export default function App() {
   return (
@@ -9,6 +10,15 @@ export default function App() {
 
       {/* AddForm component */}
       <AddForm />
+
+      <section className="space-y-5 rounded-md border p-4">
+        <h2 className="text-xl">Tasks</h2>
+
+        <div>
+          {/* FilterForm component */}
+          <FilterForm />
+        </div>
+      </section>
     </div>
   );
 }
