@@ -1,9 +1,6 @@
-export type TaskStatus = "inProgress" | "done" | "canceled";
-export type TaskPriority = "low" | "medium" | "high";
+import { EditFormSchema } from "@/lib/vlidations";
+import { z } from "zod";
 
-export type Task = {
-  name: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  completed: boolean;
-};
+export type Task = z.infer<typeof EditFormSchema>;
+export type TaskStatus = z.infer<typeof EditFormSchema.shape.status>;
+export type TaskPriority = z.infer<typeof EditFormSchema.shape.priority>;
