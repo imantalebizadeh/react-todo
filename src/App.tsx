@@ -1,11 +1,11 @@
 import Header from "@/components/Header";
 import AddForm from "@/components/AddForm";
-import FilterForm from "@/components/FilterForm";
+import Filter from "@/components/Filter";
 import TasksList from "./components/TasksList";
 
 export default function App() {
   return (
-    <div className="mx-auto flex h-screen w-full max-w-screen-sm flex-col gap-8">
+    <div className="mx-auto flex h-screen w-full max-w-screen-sm flex-col gap-8 p-4 md:p-0">
       {/* Header component */}
       <Header />
 
@@ -16,8 +16,8 @@ export default function App() {
         <h2 className="text-xl">Tasks</h2>
 
         <div className="space-y-8">
-          {/* FilterForm component */}
-          <FilterForm />
+          {/* Filter component */}
+          <Filter />
 
           {/* Tasks list */}
           <TasksList />
