@@ -26,11 +26,13 @@ import { Check, ChevronsUpDown } from "lucide-react";
 
 type EditFormProps = {
   task: Task;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function EditForm(props: EditFormProps) {
   const {
     task: { title, status, priority },
+    setOpen,
   } = props;
 
   const form = useForm<z.infer<typeof EditFormSchema>>({
@@ -44,6 +46,7 @@ export default function EditForm(props: EditFormProps) {
 
   const onSubmit = (values: z.infer<typeof EditFormSchema>) => {
     console.log(values);
+    setOpen(false);
   };
 
   return (
@@ -54,9 +57,8 @@ export default function EditForm(props: EditFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              {/* <FormLabel>Task</FormLabel> */}
               <FormControl>
-                <Input placeholder="Title..." {...field} />
+                <Input type="text" placeholder="Title..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -122,50 +124,48 @@ export default function EditForm(props: EditFormProps) {
             name="priority"
             render={({ field }) => (
               <FormItem>
-                <div className="flex flex-col gap-3">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          className="w-[200px] justify-between"
-                        >
-                          {field.value ? field.value : "Select priority..."}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
-                      <Command>
-                        <CommandGroup>
-                          {priorities.map((priority, index) => (
-                            <CommandItem
-                              key={index}
-                              value={priority}
-                              onSelect={(currentValue) => {
-                                form.setValue(
-                                  "priority",
-                                  capitalize(currentValue) as TaskPriority,
-                                );
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  "mr-2 h-4 w-4",
-                                  field.value === priority
-                                    ? "opacity-100"
-                                    : "opacity-0",
-                                )}
-                              />
-                              {priority}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className="w-[200px] justify-between"
+                      >
+                        {field.value ? field.value : "Select priority..."}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandGroup>
+                        {priorities.map((priority, index) => (
+                          <CommandItem
+                            key={index}
+                            value={priority}
+                            onSelect={(currentValue) => {
+                              form.setValue(
+                                "priority",
+                                capitalize(currentValue) as TaskPriority,
+                              );
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                field.value === priority
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                            />
+                            {priority}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
 
                 <FormMessage />
               </FormItem>
