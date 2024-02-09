@@ -1,14 +1,8 @@
-import {
-  Task,
-  TaskPriority,
-  TaskStatus,
-  initialState as initialStateType,
-} from "@/types/Tasks";
+import { RootState } from "@/types/Redux";
+import { Task, TaskPriority, TaskStatus } from "@/types/Tasks";
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState: initialStateType = {
-  tasks: [],
-};
+const initialState: Task[] = [];
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -16,7 +10,7 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer: (state, action: PayloadAction<Task>) => {
-        state.tasks.concat(action.payload);
+        state.concat(action.payload);
       },
       prepare: (title: string, status: TaskStatus, priority: TaskPriority) => ({
         payload: { id: nanoid(), title, status, priority },
@@ -25,4 +19,7 @@ const tasksSlice = createSlice({
   },
 });
 
+export const selectAllTasks = (state: RootState) => state.tasks;
+
+export const { addTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
