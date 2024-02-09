@@ -16,3 +16,5 @@ const store = configureStore({
 });
 
 export const persistedStore = persistStore(store);
+
+export default store;
