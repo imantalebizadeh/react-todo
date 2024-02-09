@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/context/ThemeProvider.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistedStore } from "@/store";
+import { store, persistedStore } from "@/store";
 import App from "./App.tsx";
 import "./index.css";
 
