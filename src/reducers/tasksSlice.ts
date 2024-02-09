@@ -10,10 +10,15 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: {
       reducer: (state, action: PayloadAction<Task>) => {
-        state.concat(action.payload);
+        state.push(action.payload);
       },
-      prepare: (title: string, status: TaskStatus, priority: TaskPriority) => ({
-        payload: { id: nanoid(), title, status, priority },
+      prepare: (title: string, priority: TaskPriority) => ({
+        payload: {
+          id: nanoid(),
+          title,
+          status: "InProgress" as TaskStatus,
+          priority,
+        },
       }),
     },
   },
