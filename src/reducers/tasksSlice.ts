@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: initialStateType = {
   tasks: [],
-  loading: false,
 };
 
 const tasksSlice = createSlice({
