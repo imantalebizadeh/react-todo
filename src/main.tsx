@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "@/context/ThemeProvider.tsx";
 import { Toaster } from "@/components/ui/toaster.tsx";
+import { Provider } from "react-redux";
+import store from "@/store";
 import App from "./App.tsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="theme">
-      <App />
-      <Toaster />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider defaultTheme="system" storageKey="theme">
+        <App />
+        <Toaster />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
 );
