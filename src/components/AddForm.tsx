@@ -1,7 +1,11 @@
 import { useState } from "react";
 
+import { TaskPriority } from "@/types/Tasks";
 import { capitalize, cn } from "@/lib/utils";
 import { priorities } from "@/lib/constants";
+
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { addTask } from "@/reducers/tasksSlice";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "./ui/button";
@@ -15,6 +19,8 @@ export default function AddForm() {
   const [input, setInput] = useState<string>("");
   const [priority, setPriority] = useState<string>("");
 
+  const dispatch = useAppDispatch();
+
   const handleClick = () => {
     if (!input) {
       toast({
@@ -23,17 +29,23 @@ export default function AddForm() {
       });
 
       return;
+    } else if (!priority) {
+      toast({
+        variant: "destructive",
+        title: "Please select task priority",
+      });
+
+      return;
     }
 
-    console.log(input);
-    console.log(priority);
+    dispatch(addTask(input, priority as TaskPriority));
 
     setInput("");
     setPriority("");
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-5">
+    <div className="flex flex-col gap-5 md:flex-row">
       {/* Input box */}
       <Input
         type="text"
@@ -48,13 +60,13 @@ export default function AddForm() {
           <Button
             variant="outline"
             role="combobox"
-            className="w-full md:w-[200px] justify-between"
+            className="w-full justify-between md:w-[200px]"
           >
             {priority ? priority : "Priority..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full md:w-[130px] p-0">
+        <PopoverContent className="w-full p-0 md:w-[130px]">
           <Command>
             <CommandGroup>
               {priorities.map((_priority, index) => (
