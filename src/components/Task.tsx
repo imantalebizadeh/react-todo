@@ -15,7 +15,7 @@ export default function Task({ task, ...props }: Props) {
       <TableCell>
         <Checkbox className="rounded-md" />
       </TableCell>
-      <TableCell>{task.name}</TableCell>
+      <TableCell>{task.title}</TableCell>
       <TableCell>{task.status}</TableCell>
       <TableCell>{task.priority}</TableCell>
       <TableCell>
