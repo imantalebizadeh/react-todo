@@ -1,70 +1,36 @@
-import { Task as TaskType } from "@/types/Tasks";
-
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "./ui/table";
 import Task from "./Task";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "./ui/table";
 
-const tasks = [
-  {
-    name: "test1",
-    status: "In Progress",
-    priority: "High",
-    completed: false,
-  },
-  {
-    name: "test2",
-    status: "In Progress",
-    priority: "Low",
-    completed: false,
-  },
-  {
-    name: "test3",
-    status: "Done",
-    priority: "High",
-    completed: false,
-  },
-  {
-    name: "test4",
-    status: "In Progress",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    name: "test5",
-    status: "Done",
-    priority: "Low",
-    completed: false,
-  },
-  {
-    name: "test6",
-    status: "In Progress",
-    priority: "Medium",
-    completed: false,
-  },
-  {
-    name: "test7",
-    status: "Done",
-    priority: "Medium",
-    completed: false,
-  },
-];
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { selectAllTasks } from "@/reducers/tasksSlice";
 
 export default function TasksList() {
+  const tasks = useAppSelector(selectAllTasks);
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead></TableHead>
-          <TableHead className="w-[300px]">Task</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Priority</TableHead>
-          <TableHead className="text-right"></TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tasks.map((task) => (
-          <Task key={task.name} task={task as TaskType} />
-        ))}
-      </TableBody>
-    </Table>
+    <>
+      {tasks.length !== 0 ? (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead></TableHead>
+              <TableHead className="w-[300px]">Task</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Priority</TableHead>
+              <TableHead className="text-right"></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tasks.map((task) => (
+              <Task key={task.id} task={task} />
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <h4 className="text-center text-base text-slate-500">
+          There are no tasks.
+        </h4>
+      )}
+    </>
   );
 }
