@@ -5,6 +5,9 @@ import { Task, TaskPriority, TaskStatus } from "@/types/Tasks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { editTask } from "@/reducers/tasksSlice";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,19 +24,19 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Check, ChevronsUpDown } from "lucide-react";
 
 type EditFormProps = {
-  task: Task;
+  taskId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function EditForm(props: EditFormProps) {
-  const {
-    task: { title, status, priority },
-    setOpen,
-  } = props;
+export default function EditForm({ taskId, setOpen }: EditFormProps) {
+  const dispatch = useAppDispatch();
+
+  const { title, status, priority } = useAppSelector((state) =>
+    state.tasks.find((task) => task.id === taskId),
+  ) as Task;
 
   const form = useForm<z.infer<typeof EditFormSchema>>({
     resolver: zodResolver(EditFormSchema),
@@ -45,7 +48,15 @@ export default function EditForm(props: EditFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof EditFormSchema>) => {
-    console.log(values);
+    dispatch(
+      editTask({
+        id: taskId,
+        title: values.title,
+        status: values.status,
+        priority: values.priority,
+      }),
+    );
+
     setOpen(false);
   };
 
