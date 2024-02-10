@@ -3,6 +3,7 @@ import { TableCell, TableRow } from "./ui/table";
 import { Checkbox } from "./ui/checkbox";
 import { ComponentProps, Ref } from "react";
 import TaskActions from "./TaskActions";
+import { splitCapitalizedWord } from "@/lib/utils";
 
 type Props = {
   task: TaskType;
@@ -16,10 +17,10 @@ export default function Task({ task, ...props }: Props) {
         <Checkbox className="rounded-md" />
       </TableCell>
       <TableCell>{task.title}</TableCell>
-      <TableCell>{task.status}</TableCell>
+      <TableCell>{splitCapitalizedWord(task.status)}</TableCell>
       <TableCell>{task.priority}</TableCell>
       <TableCell>
-        <TaskActions />
+        <TaskActions taskId={task.id} />
       </TableCell>
     </TableRow>
   );
