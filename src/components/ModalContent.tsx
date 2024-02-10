@@ -1,4 +1,3 @@
-import { Task } from "@/types/Tasks";
 import EditForm from "./EditForm";
 import {
   DialogContent,
@@ -10,10 +9,16 @@ import {
 type Props = {
   title?: string;
   description?: string;
+  taskId: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ModalContent({ title, description, setOpen }: Props) {
+export default function ModalContent({
+  title,
+  description,
+  taskId,
+  setOpen,
+}: Props) {
   return (
     <DialogContent>
       {title ||
@@ -27,7 +32,7 @@ export default function ModalContent({ title, description, setOpen }: Props) {
         ))}
 
       {/* Edit Form */}
-      <EditForm task={{} as Task} setOpen={setOpen} />
+      <EditForm taskId={taskId} setOpen={setOpen} />
     </DialogContent>
   );
 }
