@@ -1,5 +1,6 @@
+import { useState } from "react";
+
 import { Dialog, DialogTrigger } from "./ui/dialog";
-import ModalContent from "./ModalContent";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import { useState } from "react";
+import ModalContent from "./ModalContent";
 
-export default function TaskActions() {
+export default function TaskActions({ taskId }: { taskId: string }) {
   const [open, setOpen] = useState(false);
 
   const handleRemove = () => {
@@ -35,7 +36,7 @@ export default function TaskActions() {
       </DropdownMenu>
 
       {/* Modal content */}
-      <ModalContent title="Edit your task" setOpen={setOpen} />
+      <ModalContent title="Edit your task" taskId={taskId} setOpen={setOpen} />
     </Dialog>
   );
 }
