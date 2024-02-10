@@ -18,13 +18,24 @@ const tasksSlice = createSlice({
           title,
           status: "InProgress" as TaskStatus,
           priority,
+          completed: false,
         },
       }),
+    },
+    editTask: (state, action: PayloadAction<Omit<Task, "completed">>) => {
+      const { id, title, status, priority } = action.payload;
+
+      const filteredTask = state.find((task) => task.id === id);
+      if (filteredTask) {
+        filteredTask.title = title;
+        filteredTask.status = status;
+        filteredTask.priority = priority;
+      }
     },
   },
 });
 
 export const selectAllTasks = (state: RootState) => state.tasks;
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, editTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
