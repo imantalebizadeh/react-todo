@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { editTask } from "@/reducers/tasksSlice";
+import { editTask, selectTaskById } from "@/reducers/tasksSlice";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +35,7 @@ export default function EditForm({ taskId, setOpen }: EditFormProps) {
   const dispatch = useAppDispatch();
 
   const { title, status, priority } = useAppSelector((state) =>
-    state.tasks.find((task) => task.id === taskId),
+    selectTaskById(state, taskId),
   ) as Task;
 
   const form = useForm<z.infer<typeof EditFormSchema>>({
