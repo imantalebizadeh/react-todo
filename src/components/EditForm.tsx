@@ -98,26 +98,28 @@ export default function EditForm({ taskId, setOpen }: EditFormProps) {
                   <PopoverContent className="w-[200px] p-0">
                     <Command>
                       <CommandGroup>
-                        {statuses.map((status, index) => (
+                        {statuses.map((_status, index) => (
                           <CommandItem
                             key={index}
-                            value={status}
+                            value={_status}
                             onSelect={(currentValue) => {
-                              form.setValue(
-                                "status",
-                                capitalize(currentValue) as TaskStatus,
-                              );
+                              const status = currentValue
+                                .split(" ")
+                                .map((words) => capitalize(words))
+                                .join("") as TaskStatus;
+
+                              form.setValue("status", status);
                             }}
                           >
                             <Check
                               className={cn(
                                 "mr-2 h-4 w-4",
-                                field.value === status
+                                field.value === _status
                                   ? "opacity-100"
                                   : "opacity-0",
                               )}
                             />
-                            {status}
+                            {_status}
                           </CommandItem>
                         ))}
                       </CommandGroup>
