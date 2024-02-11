@@ -1,19 +1,19 @@
+import { ComponentPropsWithoutRef, useEffect, useState } from "react";
 import { Task as TaskType } from "@/types/Tasks";
-import { TableCell, TableRow } from "./ui/table";
-import { Checkbox } from "./ui/checkbox";
-import { ComponentProps, Ref, useEffect, useState } from "react";
-import TaskActions from "./TaskActions";
 import { cn, splitCapitalizedWord } from "@/lib/utils";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { selectTaskById, toggleComplete } from "@/reducers/tasksSlice";
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { selectTaskById, toggleComplete } from "@/reducers/tasksSlice";
 
-type Props = {
+import { TableCell, TableRow } from "./ui/table";
+import { Checkbox } from "./ui/checkbox";
+import TaskActions from "./TaskActions";
+
+type TaskProps = {
   task: TaskType;
-  ref?: Ref<HTMLTableRowElement>;
-} & ComponentProps<"tr">;
+} & ComponentPropsWithoutRef<"tr">;
 
-export default function Task({ task, ...props }: Props) {
+export default function Task({ task, ...props }: TaskProps) {
   const [checked, setChecked] = useState<boolean>(false);
 
   const { completed } = useAppSelector((state) =>
