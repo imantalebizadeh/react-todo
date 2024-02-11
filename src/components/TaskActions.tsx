@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
 
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import {
@@ -11,12 +12,15 @@ import {
 } from "./ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
 import ModalContent from "./ModalContent";
+import { removeTask } from "@/reducers/tasksSlice";
 
 export default function TaskActions({ taskId }: { taskId: string }) {
   const [open, setOpen] = useState(false);
 
+  const dispatch = useAppDispatch();
+
   const handleRemove = () => {
-    alert("remove");
+    dispatch(removeTask({ taskId }));
   };
 
   return (
