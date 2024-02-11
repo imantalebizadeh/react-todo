@@ -28,14 +28,39 @@ const tasksSlice = createSlice({
       const filteredTask = state.find((task) => task.id === id);
       if (filteredTask) {
         filteredTask.title = title;
-        filteredTask.status = status;
         filteredTask.priority = priority;
+
+        if (status === "Done") {
+          filteredTask.status = status;
+          filteredTask.completed = true;
+        } else {
+          filteredTask.status = status;
+          filteredTask.completed = false;
+        }
+      }
+    },
+    toggleComplete: (state, action: PayloadAction<{ taskId: string }>) => {
+      const filteredTask = state.find(
+        (task) => task.id === action.payload.taskId,
+      );
+
+      if (filteredTask) {
+        if (filteredTask.completed) {
+          filteredTask.completed = false;
+          filteredTask.status = "InProgress";
+        } else {
+          filteredTask.completed = true;
+          filteredTask.status = "Done";
+        }
       }
     },
   },
 });
 
 export const selectAllTasks = (state: RootState) => state.tasks;
+export const selectTaskById = (state: RootState, taskId: string) => {
+  return state.tasks.find((task) => task.id === taskId);
+};
 
-export const { addTask, editTask } = tasksSlice.actions;
+export const { addTask, editTask, toggleComplete } = tasksSlice.actions;
 export default tasksSlice.reducer;
