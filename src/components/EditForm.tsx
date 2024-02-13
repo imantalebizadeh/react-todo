@@ -76,7 +76,7 @@ export default function EditForm({ taskId, setOpen }: EditFormProps) {
           )}
         />
 
-        <div className="flex justify-between">
+        <div className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-0">
           <FormField
             control={form.control}
             name="status"
@@ -88,14 +88,14 @@ export default function EditForm({ taskId, setOpen }: EditFormProps) {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-[200px] justify-between"
+                        className="w-full justify-between md:w-[200px]"
                       >
                         {field.value ? field.value : "Select status..."}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
+                  <PopoverContent className="w-full p-0 md:w-[200px]">
                     <Command>
                       <CommandGroup>
                         {statuses.map((_status, index) => (
@@ -143,14 +143,14 @@ export default function EditForm({ taskId, setOpen }: EditFormProps) {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className="w-[200px] justify-between"
+                        className="w-full justify-between md:w-[200px]"
                       >
                         {field.value ? field.value : "Select priority..."}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
+                  <PopoverContent className="w-full p-0 md:w-[200px]">
                     <Command>
                       <CommandGroup>
                         {priorities.map((priority, index) => (

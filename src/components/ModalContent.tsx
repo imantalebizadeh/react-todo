@@ -20,7 +20,7 @@ export default function ModalContent({
   setOpen,
 }: Props) {
   return (
-    <DialogContent>
+    <DialogContent className="w-[350px] md:w-full rounded-lg">
       {title ||
         (description && (
           <DialogHeader>
