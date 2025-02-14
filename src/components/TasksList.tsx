@@ -28,7 +28,7 @@ export default function TasksList() {
         </Table>
       ) : (
         <h4 className="text-center text-base text-gray-500 opacity-90">
-          There are no tasks.
+          There is nothing to do.
         </h4>
       )}
     </>
